@@ -9,12 +9,12 @@
 #ifndef IOSTREAM_H
 #include <iostream>
 #define IOSTREAM_H
-#endif
+#endif //IOSTREAM_H
 
 #ifndef EXCEPTION_H
 #include <exception>
 #define EXCEPTION_H
-#endif
+#endif //EXCEPTION_H
 
 template <class T>
 class Vector{
@@ -30,14 +30,6 @@ public:
     ~Vector(){
         delete[] m_vector;
     }
-    //T getValue(int index){
-    //    try {
-    //        return m_vector[index];
-    //    }
-    //    catch (...){
-    //        std::cout << "Out of range" << std::endl;
-    //    }
-    //}
 
     int size(){
         return m_size;
@@ -138,6 +130,9 @@ public:
         return &temp;
     }
 
+    int length(){
+        return m_length;
+    }
 };
 
 
