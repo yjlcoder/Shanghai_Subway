@@ -17,9 +17,14 @@ private:
     int m_size;
 
 public:
-    Vector(int m_size = VECTOR_INIT_LENGTH): m_length(0), m_size(m_size){
-        m_vector = new T[VECTOR_INIT_LENGTH];
+    Vector(int size): m_length(0), m_size(size){
+        m_vector = new T[m_size];
     }
+
+    Vector():m_length(0), m_size(VECTOR_INIT_LENGTH){
+        m_vector = new T[m_size];
+    }
+
     ~Vector(){
         delete[] m_vector;
     }

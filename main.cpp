@@ -4,14 +4,16 @@
 
 #include "DataStructure/Vector.h"
 #include "DataStructure/List.h"
+#include "DataStructure/Vertex.h"
 #include <cstring>
 
 int main(){
-    List<int> a;
-    a.push_front(50);
-    a.push_back(30);
-    a.push_back(20);
-    a.push_front(50);
-    std::cout << a[2] << std::endl;
+    Vertex a;
+    Vertex b;
+    a.addLink(b);
+    std::cout << a.getInDegree() << std::endl;
+    std::cout << a.getOutDegree() << std::endl;
+    std::cout << b.getInDegree() << std::endl;
+    std::cout << b.getOutDegree() << std::endl;
     return 0;
 }

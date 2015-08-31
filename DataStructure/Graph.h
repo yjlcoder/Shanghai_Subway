@@ -8,16 +8,19 @@
 #include <iostream>
 #include <exception>
 #include "Vector.h"
+#include "List.h"
 
 class Graph{
 private:
-    Vector< Vector<double> > Adjacency_Matrix;
-
+    Vector< Vector<double> > AdjMatrix;
+    Vector< List<double> > AdjList;
+    int NodeCount;
 public:
     //Constructor
-    Graph(void);
+    Graph(void):NodeCount(0){};
 
-    //
+    //Modifier
+    addVertex()
 
     //Operator
     Graph& operator= (Graph rhs);
