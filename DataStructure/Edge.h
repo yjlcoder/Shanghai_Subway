@@ -5,20 +5,46 @@
 #ifndef SHANGHAI_SUBWAY_EDGE_H
 #define SHANGHAI_SUBWAY_EDGE_H
 
+#include "Vector.h"
 #include "Vertex.h"
 
+class Vertex;
 
 class Edge{
 private:
     double power;
-    Vector<Vertex> linkedVertex();
+    Vertex * left;
+    Vertex * right;
 public:
     Edge():power(0){
-        linkedVertex().resize(2);
+        left = right = NULL;
     }
+
     double getPower(){
         return power;
     }
+
+    Vertex * getLeft(){
+        return left;
+    }
+
+    Vertex * getRight(){
+        return right;
+    }
+
+    bool addVertex(Vertex & v_left, Vertex & v_right){
+        left = &v_left;
+        right = &v_right;
+        return true;
+    }
+
+    bool addVertex(Vertex & v_left, Vertex & v_right, double e_power){
+        left = &v_left;
+        right = &v_right;
+        power = e_power;
+        return true;
+    }
+    //TODO
 };
 
 #endif //SHANGHAI_SUBWAY_EDGE_H

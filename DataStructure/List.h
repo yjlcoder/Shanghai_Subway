@@ -49,6 +49,22 @@ public:
         return m_back -> value;
     }
 
+    Node<E> * frontPointer(){
+        if(!m_length){
+            std::exception e;
+            throw e;
+        }
+        return m_front;
+    }
+
+    Node<E> * backPointer(){
+        if(!m_length){
+            std::exception e;
+            throw e;
+        }
+        return m_back;
+    }
+
     //Modifier
     bool assign(int size, const E value){
         for(int i = 0; i < size; i++){
@@ -118,6 +134,23 @@ public:
         } catch(std::exception &e){
             std::cout << "Log: Exception" << e.what() << std::endl;
         }
+        return true;
+    }
+
+    bool remove(Node<E> * pointer){
+        if(pointer == m_front){
+            m_front = pointer->next;
+            delete pointer;
+            return true;
+        }
+        if(pointer == m_back){
+            m_back = pointer->prev;
+            delete pointer;
+            return true;
+        }
+        pointer->prev->next = pointer->next;
+        pointer->next->prev = pointer->prev;
+        delete pointer;
         return true;
     }
 

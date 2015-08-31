@@ -6,14 +6,30 @@
 #define SHANGHAI_SUBWAY_VERTEX_H
 
 #include "Edge.h"
+
 class Vertex{
 private:
     int outDegree;
     int inDegree;
-    List<Edge> linkedEdge;
-    void addedLink(){
+    List<Edge *> linkedEdge;
+
+    void addedLink(Edge * edge){
         inDegree++;
+        linkedEdge.push_back(edge);
     }
+
+    bool removed(Edge * edge){
+        inDegree--;
+        Node<Edge *> * node = linkedEdge.frontPointer();
+        for(int i = 0; i < linkedEdge.length(); i++){
+            if(node->value == edge){
+                linkedEdge.remove(node);
+                return true;
+            }
+        }
+        return false;
+    }
+
 public:
     //Constructor
     Vertex():outDegree(0),inDegree(0){};
@@ -22,6 +38,14 @@ public:
     ~Vertex(){}
 
     //Get
+    bool isLinked(Vertex& other){
+        for(int i = 0; i < linkedEdge.length(); i++){
+            if(linkedEdge[i]->getLeft() == &other) return true;
+            if(linkedEdge[i]->getRight() == &other) return true;
+        }
+        return false;
+    }
+
     int getInDegree(){
         return inDegree;
     }
@@ -30,9 +54,22 @@ public:
         return outDegree;
     }
 
+    //Modify
     void addLink(Vertex& other){
         this->outDegree++;
-        other.addedLink();
+        Edge * edge = new Edge;
+        edge->addVertex(*this,other);
+        other.addedLink(edge);
+    }
+
+    bool remove(Edge& edge){
+        if(edge.getLeft() == this){
+            edge.getRight()->removed(&edge);
+            return true;
+        } else if(edge.getRight() == this){
+            edge.getLeft()->removed(&edge);
+            return true;
+        } else return false;
     }
 };
 
