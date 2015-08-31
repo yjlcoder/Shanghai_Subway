@@ -3,15 +3,15 @@
 //
 
 #include "DataStructure/Vector.h"
+#include "DataStructure/List.h"
 #include <cstring>
 
-int main(int argc, char ** argv){
-    Vector<std::string> a(50);
-    try {
-        a.insert(20,"HEllo");
-    } catch (std::exception e){
-        std::cout << e.what() << std::endl;
-    }
-    std::cout << "Complete" << std::endl;
+int main(){
+    List<int> a;
+    a.push_front(50);
+    a.push_back(30);
+    a.push_back(20);
+    a.push_front(50);
+    std::cout << a[2] << std::endl;
     return 0;
 }

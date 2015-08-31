@@ -6,15 +6,8 @@
 #define SHANGHAI_SUBWAY_VECTOR_H
 #define VECTOR_INIT_LENGTH 20
 
-#ifndef IOSTREAM_H
 #include <iostream>
-#define IOSTREAM_H
-#endif //IOSTREAM_H
-
-#ifndef EXCEPTION_H
 #include <exception>
-#define EXCEPTION_H
-#endif //EXCEPTION_H
 
 template <class T>
 class Vector{
