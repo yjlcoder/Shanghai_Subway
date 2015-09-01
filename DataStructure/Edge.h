@@ -44,7 +44,6 @@ public:
         power = e_power;
         return true;
     }
-    //TODO
 };
 
 #endif //SHANGHAI_SUBWAY_EDGE_H

@@ -38,12 +38,12 @@ public:
     ~Vertex(){}
 
     //Get
-    bool isLinked(Vertex& other){
+    Edge * isLinked(Vertex& other){
         for(int i = 0; i < linkedEdge.length(); i++){
-            if(linkedEdge[i]->getLeft() == &other) return true;
-            if(linkedEdge[i]->getRight() == &other) return true;
+            if(linkedEdge[i]->getLeft() == &other) return linkedEdge[i];
+            if(linkedEdge[i]->getRight() == &other) return linkedEdge[i];
         }
-        return false;
+        return NULL;
     }
 
     int getInDegree(){
@@ -55,21 +55,40 @@ public:
     }
 
     //Modify
-    void addLink(Vertex& other){
+    Edge * addLink(Vertex& other){
         this->outDegree++;
         Edge * edge = new Edge;
+        linkedEdge.push_back(edge);
         edge->addVertex(*this,other);
         other.addedLink(edge);
+        return edge;
     }
 
-    bool remove(Edge& edge){
-        if(edge.getLeft() == this){
-            edge.getRight()->removed(&edge);
+    Edge * addLink(Vertex& other, double e_power){
+        this->outDegree++;
+        Edge * edge = new Edge;
+        linkedEdge.push_back(edge);
+        edge->addVertex(*this,other,e_power);
+        other.addedLink(edge);
+        return edge;
+    }
+
+    bool removeEdge(Edge * edge){
+        if(edge->getLeft() == this){
+            edge->getRight()->removed(edge);
+            linkedEdge.remove(edge);
             return true;
-        } else if(edge.getRight() == this){
-            edge.getLeft()->removed(&edge);
+        } else if(edge->getRight() == this){
+            edge->getLeft()->removed(edge);
+            linkedEdge.remove(edge);
             return true;
         } else return false;
+    }
+
+    bool removeAll(){
+        for(int i = 0; i < linkedEdge.length(); i++){
+            this->removeEdge(linkedEdge[i]);
+        }
     }
 };
 

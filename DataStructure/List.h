@@ -154,6 +154,17 @@ public:
         return true;
     }
 
+    bool remove(E value){
+        Node<E> * pointer = m_front;
+        for(int i = 0; i < m_length; i++){
+            if(pointer->value == value){
+                remove(pointer);
+                return true;
+            }
+        }
+        return false;
+    }
+
     bool erase(){
         Node<E> * pointer = m_front;
         if(m_front == NULL) return true;

@@ -44,7 +44,7 @@ public:
     bool resize(int newSize){
         int len = m_length > newSize ? newSize : m_length;
         T * newVector = new T[newSize];
-        if(newVector == NULL) return false;
+        if(!newVector) return false;
         for(int i = 0; i < len; i++){
             newVector[i] = m_vector[i];
         }
@@ -125,7 +125,7 @@ public:
         for(int i = 0; i < temp -> m_length; i++){
             temp -> m_vector[i] = rhs.m_vector[i];
         }
-        return &temp;
+        return temp;
     }
 
     int length(){
