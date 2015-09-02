@@ -48,7 +48,7 @@ public:
         for(int i = 0; i < len; i++){
             newVector[i] = m_vector[i];
         }
-        delete m_vector;
+        delete[] m_vector;
         m_vector = newVector;
         m_length = len;
         m_size = newSize;
@@ -119,13 +119,13 @@ public:
         return m_vector[index];
     }
 
-    T operator=(const Vector<T> rhs){
+    Vector<T> & operator=(const Vector<T> rhs){
         Vector<T> * temp = new Vector(rhs.m_size);
         temp -> m_length = rhs.m_length;
         for(int i = 0; i < temp -> m_length; i++){
             temp -> m_vector[i] = rhs.m_vector[i];
         }
-        return temp;
+        return *temp;
     }
 
     int length(){

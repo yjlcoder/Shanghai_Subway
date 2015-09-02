@@ -21,7 +21,7 @@ public:
 
     //Deconstructor
     ~List(){
-        erase();
+        //erase();
     }
 
     //Capacity
@@ -100,10 +100,16 @@ public:
     }
 
     bool push_back(const E value){
-        m_back->next = new Node<E>(value);
-        m_back->next->prev = m_back;
-        m_back = m_back->next;
-        m_length++;
+        if(m_length==0){
+            m_front = m_back = new Node<E>(value);
+            m_length++;
+        }
+        else {
+            m_back->next = new Node<E>(value);
+            m_back->next->prev = m_back;
+            m_back = m_back->next;
+            m_length++;
+        }
         return true;
     }
 
@@ -179,15 +185,15 @@ public:
     }
 
     //operator
-    List& operator= (const List& x){
-        List copy;
-        for(int i = 0; i < m_length; i++){
-            copy.push_back(x[i]);
-        }
-        return copy;
-    }
+    //List& operator= (const List& x){
+    //    List copy;
+    //    for(int i = 0; i < m_length; i++){
+    //        copy.push_back(x[i]);
+    //    }
+    //    return copy;
+    //}
 
-    E operator[] (int index){
+    E & operator[] (int index){
         Node<E> * pointer = m_front;
         if(index >= m_length || index < 0){
             std::exception e;

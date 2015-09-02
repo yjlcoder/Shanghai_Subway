@@ -6,7 +6,6 @@
 #define SHANGHAI_SUBWAY_EDGE_H
 
 #include "Vector.h"
-#include "Vertex.h"
 
 class Vertex;
 

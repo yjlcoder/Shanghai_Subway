@@ -5,7 +5,24 @@
 #ifndef SHANGHAI_SUBWAY_GRAPH_H
 #define SHANGHAI_SUBWAY_GRAPH_H
 
-#define SUBWAY_COUNT 500
+#define LINE_0 0x0000
+#define LINE_1 0x0001
+#define LINE_2 0x0002
+#define LINE_3 0x0004
+#define LINE_4 0x0008
+#define LINE_5 0x0010
+#define LINE_6 0x0020
+#define LINE_7 0x0040
+#define LINE_8 0x0080
+#define LINE_9 0x0100
+#define LINE_10 0x0200
+#define LINE_11 0x0400
+#define LINE_12 0x0800
+#define LINE_13 0x1000
+#define LINE_14 0x2000
+#define LINE_15 0x4000
+#define LINE_16 0x10000
+
 
 #include <iostream>
 #include <exception>
@@ -13,27 +30,50 @@
 #include "List.h"
 #include "Vertex.h"
 
+struct VertexNode{
+    uint32_t line;
+    std::string name;
+    Vertex * vertex;
+};
+
 struct listNode{
     double power;
-    Vertex * link;
+    VertexNode * link;
 };
 
 class Graph{
 private:
-    Vector< Vector<double> > * AdjMatrix;
+    Vector< Vector<double> *> * AdjMatrix;
     Vector< List<listNode *> > * AdjList;
     int vertexCount;
-    int edgeCount;
-    List<Vertex *> vertexList;
+    List<VertexNode *> vertexList;
     //List<Edge *> edgeList;
 public:
     //Constructor
-    Graph(void): vertexCount(0),edgeCount(0),AdjMatrix(NULL),AdjList(NULL){};
+    Graph(void): vertexCount(0),AdjMatrix(NULL),AdjList(NULL){};
 
     //Modifier
-    bool addVertex(){
-        vertexList[vertexCount] = new Vertex;
+    bool addVertex(std::string Name){
+       addVertex(Name, LINE_0)
+    }
+
+    bool addVertex(std::string Name, uint32_t Line){
+        for(int i = 0;i < vertexCount; i++){
+            if(vertexList[i]->name == Name){
+                return addLine(Name, Line, i);
+            }
+        }
+        VertexNode * temp = new VertexNode;
+        temp->name = Name;
+        temp->line = Line;
+        temp->vertex = new Vertex;
+        vertexList.push_back(temp);
         vertexCount++;
+        return true;
+    }
+
+    bool addLine(std::string Name, uint32_t Line, int VertexNum){
+        vertexList[VertexNum]->line |= Line;
         return true;
     }
 
@@ -42,33 +82,50 @@ public:
         return true;
     }
 
+    bool addEdge(std::string name1, std::string name2, double power){
+        if(name1 == name2) return false;
+        Vertex * v1 = NULL;
+        Vertex * v2 = NULL;
+        for(Node<VertexNode *> * pointer = vertexList.frontPointer(); pointer != NULL; pointer = pointer->next ){
+            if(pointer->value->name == name1) v1 = pointer->value->vertex;
+            if(pointer->value->name == name2) v2 = pointer->value->vertex;
+        }
+        if(v1 == NULL || v2 == NULL) return false;
+        else return addEdge(*v1,*v2,power);
+    }
+
     bool removeVertex(int index){
         bool result = removeVertex(vertexList[index]);
-        vertexList.remove(&(vertexList[index]));
+        vertexList.remove(vertexList[index]);
         return result;
     }
 
-    bool removeVertex(Vertex * m_vertex){
-        m_vertex->removeAll();
+    bool removeVertex(VertexNode * m_vertex){
+        m_vertex->vertex->removeAll();
         vertexList.remove(m_vertex);
         vertexCount--;
         return true;
     }
-
     bool buildMatrix(){
         if(AdjMatrix != NULL) delete AdjMatrix;
-        AdjMatrix = new Vector< Vector<double> >;
+        AdjMatrix = new Vector< Vector<double> *>;
         AdjMatrix->resize(vertexCount);
         for(int i = 0; i < vertexCount; i++){
-            AdjMatrix[i].resize(vertexCount);
+            (*AdjMatrix)[i] = new Vector<double>;
+            (*AdjMatrix)[i]->resize(vertexCount);
+        }
+        for(int i = 0; i < vertexCount; i++){
+            for(int j = 0; j < vertexCount; j++){
+                (*(*AdjMatrix)[i])[j] = -1;
+            }
         }
         for(int i = 0; i < vertexCount; i++){
             for(int j = 0; j < vertexCount; j++){
                 if(vertexList[i] != vertexList[j]){
-                    if(Edge * pointer = vertexList[i]->isLinked(*vertexList[j])){
-                        (*AdjMatrix)[i][j] = pointer->getPower();
+                    if(Edge * pointer = vertexList[i]->vertex->isLinked(*vertexList[j]->vertex)){
+                        (*(*AdjMatrix)[i])[j] = pointer->getPower();
                     }
-                    else (*AdjMatrix)[i][j] = -1;
+                    else (*(*AdjMatrix)[i])[j] = -1;
                 }
             }
         }
@@ -80,25 +137,31 @@ public:
         AdjList = new Vector<List<listNode *> >;
         AdjList->resize(vertexCount);
         for(int i = 0; i < vertexCount; i++){
+            List<listNode *> list;
             for(int j = 0; j < vertexCount; j++){
                 if(vertexList[i] != vertexList[j]){
-                    if(Edge * pointer = vertexList[i]->isLinked(*vertexList[j])){
+                    //debug
+                    VertexNode * temp1 = vertexList[i];
+                    Vertex * temp2 = temp1->vertex;
+                    Edge * pointer = temp2->isLinked(*(vertexList[j])->vertex);
+                    if(pointer != NULL){
                         listNode * temp = new listNode;
                         temp->link = vertexList[j];
                         temp->power = pointer->getPower();
-                        (*AdjList)[i].push_back(temp);
+                        list.push_back(temp);
                     }
                 }
             }
+            AdjList->push_back(list);
         }
         return true;
     }
 
     bool printAdjMatrix(){
         buildMatrix();
-        for(int i = 0; i < AdjMatrix->length(); i++){
-            for(int j = 0; j < AdjMatrix[i].length(); j++){
-                std::cout << (*AdjMatrix)[i][j];
+        for(int i = 0; i < vertexCount; i++){
+            for(int j = 0; j < vertexCount; j++){
+                std::cout << (*(*AdjMatrix)[i])[j] << ' ';
             }
             std::cout << std::endl;
         }
@@ -109,9 +172,11 @@ public:
     bool printAdjList(){
         buildList();
         for(int i = 0; i < AdjList->length(); i++){
-            for(Node<listNode *> * pointer = (*AdjList)[i].frontPointer(); pointer != NULL; pointer = pointer->next){
-                std::cout << "  |" <<pointer->value->power << "," << pointer->value->link << std::endl;
+            std::cout << vertexList[i]->name;
+            for(Node<listNode *> *pointer = (*AdjList)[i].frontPointer(); pointer != NULL; pointer = pointer->next){
+                std::cout << "  |" << pointer->value->power << "," << pointer->value->link->name;
             }
+            std::cout << std::endl;
         }
         std::cout << std::endl;
     }
