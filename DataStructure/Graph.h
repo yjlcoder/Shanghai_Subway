@@ -5,25 +5,6 @@
 #ifndef SHANGHAI_SUBWAY_GRAPH_H
 #define SHANGHAI_SUBWAY_GRAPH_H
 
-#define LINE_0 0x0000
-#define LINE_1 0x0001
-#define LINE_2 0x0002
-#define LINE_3 0x0004
-#define LINE_4 0x0008
-#define LINE_5 0x0010
-#define LINE_6 0x0020
-#define LINE_7 0x0040
-#define LINE_8 0x0080
-#define LINE_9 0x0100
-#define LINE_10 0x0200
-#define LINE_11 0x0400
-#define LINE_12 0x0800
-#define LINE_13 0x1000
-#define LINE_14 0x2000
-#define LINE_15 0x4000
-#define LINE_16 0x10000
-
-
 #include <iostream>
 #include <exception>
 #include "Vector.h"
@@ -49,14 +30,11 @@ private:
     List<VertexNode *> vertexList;
     //List<Edge *> edgeList;
 public:
+    const uint32_t LINE[17]={0,0x00000001,0x00000002,0x00000004,0x00000008,0x00000010,0x00000020,0x00000040,0x00000080,0x00000100,0x00000200,0x00000400,0x00001000,0x00002000,0x00004000,0x00008000,0x00010000};
     //Constructor
     Graph(void): vertexCount(0),AdjMatrix(NULL),AdjList(NULL){};
 
     //Modifier
-    bool addVertex(std::string Name){
-       addVertex(Name, LINE_0)
-    }
-
     bool addVertex(std::string Name, uint32_t Line){
         for(int i = 0;i < vertexCount; i++){
             if(vertexList[i]->name == Name){
