@@ -22,6 +22,13 @@ struct listNode{
     VertexNode * link;
 };
 
+struct VertexandEdge {
+    VertexNode * myVertexnode;
+    Edge * myEdge;
+    VertexandEdge * next;
+    int distance;
+};
+
 class Graph{
 private:
     Vector< Vector<double> *> * AdjMatrix;
@@ -29,6 +36,25 @@ private:
     int vertexCount;
     List<VertexNode *> vertexList;
     //List<Edge *> edgeList;
+
+private :
+    int findInList(std::string name){
+        for(int i = 0; i < vertexCount; i++){
+            if(vertexList[i]->name == name){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    int findInList(Vertex * m_vertex){
+        for(int i = 0;i < vertexCount; i++){
+            if(vertexList[i]->vertex == m_vertex){
+                return i;
+            }
+        }
+        return -1;
+    }
 public:
     const uint32_t LINE[17]={0,0x00000001,0x00000002,0x00000004,0x00000008,0x00000010,0x00000020,0x00000040,0x00000080,0x00000100,0x00000200,0x00000400,0x00001000,0x00002000,0x00004000,0x00008000,0x00010000};
     //Constructor
@@ -157,6 +183,45 @@ public:
             std::cout << std::endl;
         }
         std::cout << std::endl;
+    }
+
+    //Graph Algorithm
+    Vector<VertexandEdge *> * DijkstraShortestPath(VertexNode * source, VertexNode * dest){
+        Vector<VertexandEdge *> * result = new Vector<VertexandEdge *>;
+        List<VertexandEdge *> tempList;
+
+        VertexandEdge * sourceNode = new VertexandEdge;
+        sourceNode->myVertexnode = source;
+        sourceNode->myEdge = NULL;
+        sourceNode->next = NULL;
+        sourceNode->distance= 0;
+
+        Vector<int> isGet;
+        for(int i = 0; i < vertexCount; i++){
+            isGet.push_back(0);
+        }
+        while(!tempList.length() || isGet[findInList(dest->name)]){
+            VertexandEdge * now = tempList.pop_front();
+            List<Edge *> * link = now->myVertexnode->vertex->getLinkList();
+            for(int i = 0; i < now->myVertexnode->vertex->getLinkNum(); i++){
+                if(!isGet[findInList((*link)[i]->getOther(now->myVertexnode->vertex))]) continue;
+                VertexandEdge * newVE = new VertexandEdge;
+                newVE->myVertexnode = vertexList[findInList((*link)[i]->getOther(now->myVertexnode->vertex))];
+                newVE->myEdge = (*link)[i];
+                newVE->next = now;
+                newVE->distance = now->distance+1;
+                isGet[findInList(newVE->myVertexnode->name)] = 1;
+                tempList.push_back(newVE);
+            }
+        }
+        if(!tempList.length()){
+            VertexandEdge * pointer = tempList.pop_back();
+            while(pointer->next != NULL){
+                result->push_back(pointer);
+                pointer = pointer->next;
+            }
+        }
+        return result;
     }
 };
 

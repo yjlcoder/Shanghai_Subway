@@ -49,6 +49,14 @@ public:
         return NULL;
     }
 
+    int getLinkNum(){
+        return linkedEdge->length();
+    }
+
+    List<Edge *> * getLinkList(){
+        return linkedEdge;
+    }
+
     int getInDegree(){
         return inDegree;
     }

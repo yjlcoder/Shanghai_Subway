@@ -23,6 +23,12 @@ public:
         return power;
     }
 
+    Vertex * getOther(Vertex * one){
+        if(one == left) return right;
+        if(one == right) return left;
+        return NULL;
+    }
+
     Vertex * getLeft(){
         return left;
     }
