@@ -49,7 +49,6 @@ void buildVertex(Graph & subway) {
 int main(){
     Graph subway;
     buildVertex(subway);
-    std::string s1("同济大学");
-    std::string s2("东方体育中心");
-    subway.DijkstraShortestPath(s1,s2);
+    subway.printAdjList();
+//    subway.DijkstraShortestPath(s1,s2);
 }

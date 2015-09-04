@@ -42,26 +42,14 @@ public:
         return m_front-> value;
     }
     E back(){
-        if(!m_length){
-            std::exception e;
-            throw e;
-        }
         return m_back -> value;
     }
 
     Node<E> * frontPointer(){
-        if(!m_length){
-            std::exception e;
-            throw e;
-        }
         return m_front;
     }
 
     Node<E> * backPointer(){
-        if(!m_length){
-            std::exception e;
-            throw e;
-        }
         return m_back;
     }
 

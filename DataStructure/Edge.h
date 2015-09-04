@@ -10,7 +10,7 @@
 class Vertex;
 
 class Edge{
-private:
+protected:
     double power;
     Vertex * left;
     Vertex * right;
@@ -37,15 +37,15 @@ public:
         return right;
     }
 
-    bool addVertex(Vertex & v_left, Vertex & v_right){
-        left = &v_left;
-        right = &v_right;
+    bool addVertex(Vertex * v_left, Vertex * v_right){
+        left = v_left;
+        right = v_right;
         return true;
     }
 
-    bool addVertex(Vertex & v_left, Vertex & v_right, double e_power){
-        left = &v_left;
-        right = &v_right;
+    bool addVertex(Vertex * v_left, Vertex * v_right, double e_power){
+        left = v_left;
+        right = v_right;
         power = e_power;
         return true;
     }

@@ -7,9 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/DataStructure/Graph.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DataStructure/List.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DataStructure/Node.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/DataStructure/Subway.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DataStructure/Vector.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DataStructure/Vertex.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DataStructure/subway.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />

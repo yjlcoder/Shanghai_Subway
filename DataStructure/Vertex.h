@@ -7,22 +7,20 @@
 
 #include "Edge.h"
 #include "List.h"
+#include "Graph.h"
 
 class Vertex{
-private:
-    int outDegree;
-    int inDegree;
+protected:
+    std::string name = "";
     List<Edge *> * linkedEdge;
 
     void addedLink(Edge * edge){
-        inDegree++;
         linkedEdge->push_back(edge);
     }
 
     bool removed(Edge * edge){
-        inDegree--;
         Node<Edge *> * node = linkedEdge->frontPointer();
-        for(int i = 0; i < linkedEdge->length(); i++){
+        for(int i = 0; i < linkedEdge->length(); i++, node = node->next){
             if(node->value == edge){
                 linkedEdge->remove(node);
                 return true;
@@ -33,20 +31,31 @@ private:
 
 public:
     //Constructor
-    Vertex():outDegree(0),inDegree(0){
+    Vertex(){
         linkedEdge = new List<Edge *>;
     };
+
+    Vertex(std::string str){
+        name = str;
+        linkedEdge = new List<Edge *>;
+    }
 
     //Deconstuctor
     ~Vertex(){}
 
     //Get
-    Edge * isLinked(Vertex& other){
+    Edge * isLinked(Vertex * other){
+        Node<Edge *> * pointer = linkedEdge->frontPointer();
         for(int i = 0; i < linkedEdge->length(); i++){
-            if((*linkedEdge)[i]->getLeft() == &other) return (*linkedEdge)[i];
-            if((*linkedEdge)[i]->getRight() == &other) return (*linkedEdge)[i];
+            if(pointer->value->getLeft() == other) return pointer->value;
+            if(pointer->value->getRight() == other) return pointer->value;
+            pointer = pointer->next;
         }
         return NULL;
+    }
+
+    std::string getName(){
+        return this->name;
     }
 
     int getLinkNum(){
@@ -57,30 +66,20 @@ public:
         return linkedEdge;
     }
 
-    int getInDegree(){
-        return inDegree;
-    }
-
-    int getOutDegree(){
-        return outDegree;
-    }
-
     //Modify
-    Edge * addLink(Vertex& other){
-        this->outDegree++;
-        Edge * edge = new Edge;
-        linkedEdge->push_back(edge);
-        edge->addVertex(*this,other);
-        other.addedLink(edge);
-        return edge;
-    }
+//    Edge * addLink(Vertex * other){
+//        Edge * edge = new Edge;
+//        linkedEdge->push_back(edge);
+//        edge->addVertex(this,other);
+//        other->addedLink(edge);
+//        return edge;
+//    }
 
-    Edge * addLink(Vertex& other, double e_power){
-        this->outDegree++;
+    Edge * addLink(Vertex * other, double e_power){
         Edge * edge = new Edge;
         linkedEdge->push_back(edge);
-        edge->addVertex(*this,other,e_power);
-        other.addedLink(edge);
+        edge->addVertex(this,other,e_power);
+        other->addedLink(edge);
         return edge;
     }
 
@@ -97,8 +96,10 @@ public:
     }
 
     bool removeAll(){
+        Node<Edge *> * pointer = linkedEdge->frontPointer();
         for(int i = 0; i < linkedEdge->length(); i++){
-            this->removeEdge((*linkedEdge)[i]);
+            this->removeEdge(pointer->value);
+            pointer = pointer->next;
         }
     }
 };

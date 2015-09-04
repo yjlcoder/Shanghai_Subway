@@ -10,6 +10,6 @@ set(SOURCE_FILES
         DataStructure/List.h
         DataStructure/Node.h
         DataStructure/Vertex.h
-        DataStructure/Edge.h)
+        DataStructure/Edge.h DataStructure/subway.h)
 
 add_executable(Shanghai_Subway ${SOURCE_FILES})
