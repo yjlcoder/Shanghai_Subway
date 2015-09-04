@@ -29,6 +29,27 @@ void fileInput(Graph & subway, int i){
     }
 }
 
+void fileInput(Graph & subway, const char * inputFile, int i){
+    std::string site1, site2;
+    double power;
+    std::fstream fin;
+    std::string filePath(inputFile);
+    fin.open(filePath, std::ios::in);
+    if (fin.is_open()) {
+        fin >> site1;
+        subway.addVertex(site1,subway.LINE[i]);
+        while (!fin.eof()) {
+            fin >> power >> site2;
+            subway.addVertex(site2,subway.LINE[i]);
+            subway.addEdge(site1,site2,power);
+            site1 = site2;
+        }
+        fin.close();
+    } else {
+        std::cout << "File Open Failed, File:" << i << std::endl;
+    }
+}
+
 void buildVertex(Graph & subway) {
     fileInput(subway,1);
     fileInput(subway,2);
@@ -44,12 +65,14 @@ void buildVertex(Graph & subway) {
     fileInput(subway,12);
     fileInput(subway,13);
     fileInput(subway,16);
+    fileInput(subway,"/home/liuyang/Code/Shanghai_Subway/Data/Line10_other.dat",10);
+    fileInput(subway,"/home/liuyang/Code/Shanghai_Subway/Data/Line11_other.dat",11);
 }
 
 int main(){
     Graph subway;
     buildVertex(subway);
-    List<VertexandEdge *> * result = subway.DijkstraShortestPath(new std::string("同济大学"),new std::string("人民广场"));
+    List<VertexandEdge *> * result = subway.DijkstraShortestPath(new std::string("上海汽车城"),new std::string("海天三路"));
     for(Node<VertexandEdge *> * i = result->frontPointer(); i != NULL; i=i->next){
         std::cout << i->value->vertex->getName() << " --> ";
     }
