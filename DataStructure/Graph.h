@@ -223,6 +223,10 @@ public:
         }
         return result;
     }
+
+    Vector<VertexandEdge *> * DijkstraShortestPath(std::string & source, std::string & dest){
+        return DijkstraShortestPath(vertexList[findInList(source)],vertexList[findInList(dest)]);
+    }
 };
 
 #endif //SHANGHAI_SUBWAY_GRAPH_H
