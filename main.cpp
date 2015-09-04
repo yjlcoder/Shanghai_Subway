@@ -49,6 +49,9 @@ void buildVertex(Graph & subway) {
 int main(){
     Graph subway;
     buildVertex(subway);
-    subway.printAdjList();
-//    subway.DijkstraShortestPath(s1,s2);
+    List<VertexandEdge *> * result = subway.DijkstraShortestPath(new std::string("同济大学"),new std::string("人民广场"));
+    for(Node<VertexandEdge *> * i = result->frontPointer(); i != NULL; i=i->next){
+        std::cout << i->value->vertex->getName() << " --> ";
+    }
+    std::cout << " END "<< std::endl;
 }

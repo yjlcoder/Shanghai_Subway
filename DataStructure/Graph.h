@@ -23,38 +23,26 @@ struct listNode{
     Vertex * vertex;
 };
 
-//struct VertexandEdge {
-//    VertexNode * myVertexnode;
-//    Edge * myEdge;
-//    VertexandEdge * next;
-//    int distance;
-//};
+struct VertexandEdge {
+    Vertex * vertex = NULL;
+    Edge * edge = NULL;
+    int distance = 0;
+    VertexandEdge * next;
+};
 
-class Graph {
+class Graph{
 private:
     Vector<Vector<double> *> *AdjMatrix;
     Vector<List<listNode *> > *AdjList;
     List<Vertex *> *vertexList;
     //List<Edge *> edgeList;
 
-private :
-//    int findInList(std::string name){
-//        for(int i = 0; i < vertexCount; i++){
-//            if(vertexList[i]->name == name){
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
-
-//    int findInList(Vertex * m_vertex){
-//        for(int i = 0;i < vertexCount; i++){
-//            if(vertexList[i]->vertex == m_vertex){
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
+    Vertex * findInList(std::string * Name){
+        for(auto i = vertexList->frontPointer(); i != NULL; i=i->next){
+            if(i->value->getName() == *Name) return i->value;
+        }
+        return NULL;
+    }
 
 public:
     const uint32_t LINE[17] = {0, 0x00000001, 0x00000002, 0x00000004, 0x00000008, 0x00000010, 0x00000020, 0x00000040,
@@ -150,47 +138,49 @@ public:
     }
 
 //    Graph Algorithm
-//    Vector<VertexandEdge *> * DijkstraShortestPath(VertexNode * source, VertexNode * dest){
-//        Vector<VertexandEdge *> * result = new Vector<VertexandEdge *>;
-//        List<VertexandEdge *> tempList;
-//
-//        VertexandEdge * sourceNode = new VertexandEdge;
-//        sourceNode->myVertexnode = source;
-//        sourceNode->myEdge = NULL;
-//        sourceNode->next = NULL;
-//        sourceNode->distance= 0;
-//
-//        Vector<int> isGet;
-//        for(int i = 0; i < vertexCount; i++){
-//            isGet.push_back(0);
-//        }
-//        while(!tempList.length() || isGet[findInList(dest->name)]){
-//            VertexandEdge * now = tempList.pop_front();
-//            List<Edge *> * link = now->myVertexnode->vertex->getLinkList();
-//            for(int i = 0; i < now->myVertexnode->vertex->getLinkNum(); i++){
-//                if(!isGet[findInList((*link)[i]->getOther(now->myVertexnode->vertex))]) continue;
-//                VertexandEdge * newVE = new VertexandEdge;
-//                newVE->myVertexnode = vertexList[findInList((*link)[i]->getOther(now->myVertexnode->vertex))];
-//                newVE->myEdge = (*link)[i];
-//                newVE->next = now;
-//                newVE->distance = now->distance+1;
-//                isGet[findInList(newVE->myVertexnode->name)] = 1;
-//                tempList.push_back(newVE);
-//            }
-//        }
-//        if(!tempList.length()){
-//            VertexandEdge * pointer = tempList.pop_back();
-//            while(pointer->next != NULL){
-//                result->push_back(pointer);
-//                pointer = pointer->next;
-//            }
-//        }
-//        return result;
-//    }
-//
-//    Vector<VertexandEdge *> * DijkstraShortestPath(std::string & source, std::string & dest){
-//        return DijkstraShortestPath(vertexList[findInList(source)],vertexList[findInList(dest)]);
-//    }
+    List<VertexandEdge *> * DijkstraShortestPath(SubwayVertex * dest, SubwayVertex * source){
+        List<VertexandEdge *> * result = new List<VertexandEdge *>;
+        List<VertexandEdge *> tempList;
+
+        for(auto i = vertexList->frontPointer(); i != NULL; i=i->next){
+            i->value->isGet = false;
+        }
+
+        VertexandEdge * sourceNode = new VertexandEdge;
+        sourceNode->vertex = dest;
+        sourceNode->edge = NULL;
+        sourceNode->distance = 0;
+        sourceNode->next = NULL;
+        tempList.push_back(sourceNode);
+
+        while(tempList.length() && !source->isGet){
+            VertexandEdge * now = tempList.pop_front();
+            List<Edge *> * link = now->vertex->getLinkList();
+            for(auto i = link->frontPointer(); i != NULL; i = i->next){
+                if(i->value->getOther(now->vertex)->isGet) continue;
+                VertexandEdge * newVE = new VertexandEdge;
+                newVE->vertex = i->value->getOther(now->vertex);
+                newVE->edge = i->value;
+                newVE->next = now;
+                newVE->distance = now->distance+1;
+                newVE->vertex->isGet = true;
+                tempList.push_back(newVE);
+                if(source->isGet) break;
+            }
+        }
+        if(tempList.length()){
+            VertexandEdge * pointer = tempList.pop_back();
+            while(pointer != NULL){
+                result->push_back(pointer);
+                pointer = pointer->next;
+            }
+        }
+        return result;
+    }
+
+    List<VertexandEdge *> * DijkstraShortestPath(std::string * dest, std::string * source){
+        return DijkstraShortestPath((SubwayVertex*)findInList(source),(SubwayVertex*)findInList(dest));
+    }
 };
 
 #endif //SHANGHAI_SUBWAY_GRAPH_H

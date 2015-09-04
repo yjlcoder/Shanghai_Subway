@@ -80,7 +80,7 @@ public:
         }
         Node<E> * pointer = m_front;
         m_front = pointer->next;
-        m_front->prev = NULL;
+        if(m_front) m_front->prev = NULL;
         E temp = pointer->value;
         m_length--;
         delete pointer;
@@ -102,6 +102,7 @@ public:
     }
 
     E pop_back(){
+        if(!m_length) return NULL;
         Node<E> * pointer = m_back;
         m_back = pointer->prev;
         pointer -> next = NULL;

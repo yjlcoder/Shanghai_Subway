@@ -30,6 +30,8 @@ protected:
     }
 
 public:
+
+    bool isGet;
     //Constructor
     Vertex(){
         linkedEdge = new List<Edge *>;
