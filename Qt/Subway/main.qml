@@ -5,8 +5,8 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     title: qsTr("Shanghai Subway")
-    width: 800
-    height: 600
+    width: 1366
+    height: 768
     visible: true
 
     menuBar: MenuBar {
