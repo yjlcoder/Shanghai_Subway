@@ -5,15 +5,7 @@ import QtQuick 2.0
 Rectangle{
 //    property alias text: name.text
     property string  text: "value"
-    property string link1: ""
-    property string link2: ""
-    property string link3: ""
-    property string link4: ""
-    property string link5: ""
-    property string link6: ""
-    property string link7: ""
-    property string link8: ""
-    property string link9: ""
+    property int count:0
 
     width: 28
     height: 28

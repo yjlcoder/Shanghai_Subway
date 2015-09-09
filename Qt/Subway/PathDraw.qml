@@ -10,6 +10,8 @@ Item {
     property int point2x
     property int point2y
     property bool dottedAnimation: false
+    property int leftNode: 0
+    property int rightNode: 0
 
     MouseArea{
         id: mouse

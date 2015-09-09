@@ -7,11 +7,9 @@ Rectangle {
     property double zoom: 1.0
     id: subway
     scale: zoom
-    color:"#EEEEEE"
+    color:"transparent"
     width: 1000
     height: 1000
-
-    Component.onCompleted: SHG.initStations();
 
     MouseArea{
         anchors.fill: parent
@@ -25,9 +23,7 @@ Rectangle {
             subway.zoom = real
         }
 
-        onClicked: {
-            SHG.initStations();
-        }
+        onClicked: SHG.initStations();
 
         onWheel: {
             subway.zoom += wheel.angleDelta.y / 2000

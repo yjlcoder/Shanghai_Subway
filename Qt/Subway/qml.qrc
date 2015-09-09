@@ -5,7 +5,6 @@
         <file>Station.qml</file>
         <file>Circle.qml</file>
         <file>Test.qml</file>
-        <file>Link.qml</file>
         <file>Dialog.qml</file>
         <file>shanghaigraph.js</file>
         <file>PathDraw.qml</file>
