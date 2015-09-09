@@ -4,7 +4,7 @@ Item {
     id: rootDraw
 
     property int lineWidth: 8
-    property color lineColor: "#FFF"
+    property color lineColor: "#FF0000"
     property int point1x
     property int point1y
     property int point2x

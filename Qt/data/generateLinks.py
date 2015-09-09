@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#encoding: utf-8
 import xml.etree.ElementTree as ET
 tree = ET.parse('./data.xml')
 root = tree.getroot()
@@ -25,4 +26,5 @@ for Node in Nodes:
         print 'links[linkCount].point1y = stations[links[linkCount].leftNode].y + 15'
         print 'links[linkCount].point2x = stations[links[linkCount].rightNode].x + 15'
         print 'links[linkCount].point2y = stations[links[linkCount].rightNode].y + 15'
+        print 'console.log(links[linkCount].lineColor)'
         print "linkCount+=1"
