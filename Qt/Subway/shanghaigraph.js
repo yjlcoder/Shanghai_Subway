@@ -1,22 +1,11 @@
-var stations;
+var stations = new Array();
+var stationCount = 0;
 
-function Station_js(name){
-    this.name = name;
-    this.link = new Array();
-    this.component = Qt.createComponent("Station.qml");
-    var i = 0;
-}
-
-function Link(left,right,lineNum){
-    this.left = left
-    this.right = right
-    this.lineNum = lineNum
-}
-
-function initGraph(){
-    stations = new Array();
-    var i = 0
-    stations[i] = new Station_js("jiadingxincheng");
-    stations[i].component.x = 40
-    stations[i].component.y = 50
+function initStations(){
+    var component = Qt.createComponent("Station.qml");
+    stations[stationCount] = component.createObject(subway,{"x":20 * stationCount,"y": 10 * stationCount});
+    stationCount++;
+    if(stations[stationCount-1] == null){
+        console.log("Error creating object");
+    }
 }
