@@ -5,8 +5,8 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     title: qsTr("Shanghai Subway")
-    width: 1366
-    height: 768
+    width: 800
+    height: 600
     visible: true
 
     menuBar: MenuBar {
@@ -34,6 +34,7 @@ ApplicationWindow {
     SubwayGraph{
         anchors.fill: parent
     }
+
 
     MessageDialog {
         id: messageDialog

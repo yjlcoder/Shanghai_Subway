@@ -3,10 +3,12 @@
         <file>main.qml</file>
         <file>SubwayGraph.qml</file>
         <file>Station.qml</file>
-        <file>Circle.qml</file>
         <file>Test.qml</file>
         <file>Dialog.qml</file>
         <file>shanghaigraph.js</file>
         <file>PathDraw.qml</file>
+        <file>Circle.qml</file>
+        <file>Line.qml</file>
+        <file>Drawline.js</file>
     </qresource>
 </RCC>
