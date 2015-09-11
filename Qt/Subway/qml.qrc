@@ -10,5 +10,7 @@
         <file>Circle.qml</file>
         <file>Line.qml</file>
         <file>Drawline.js</file>
+        <file>Dialog_my.qml</file>
+        <file>createDialog.js</file>
     </qresource>
 </RCC>
