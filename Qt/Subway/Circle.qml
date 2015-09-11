@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import "createDialog.js" as MyDialog
-
+import QtQuick.Dialogs 1.2
+import QtQuick.Controls 1.2
 Canvas{
 
     property string fillColor: "red"
@@ -34,13 +35,11 @@ Canvas{
         ctx.moveTo(width/2, height/2);
 
         ctx.arc(width/2, height/2, radius, 0, 2*Math.PI, false);
-        console.log(radius);
         ctx.fill();
 
         ctx.beginPath();
         ctx.fillStyle="black"
         ctx.arc(width/2, height/2, inRadius,0, 2*Math.PI, false);
-        console.log(inRadius);
         ctx.fill();
     }
 
@@ -73,6 +72,9 @@ Canvas{
             MyDialog.destroy();
             circle.state = "State2"
         }
-        onClicked: console.log("Clicked"+text);
+        onClicked:{
+            console.log("Clicked"+text);
+            MyDialog.defaultDialog();
+        }
     }
 }

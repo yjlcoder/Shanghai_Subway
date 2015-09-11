@@ -1748,8 +1748,6 @@ Canvas{
 
     function drawline(point1x,point1y,point2x,point2y,color){
         var ctx = subway.getContext("2d");
-        if(ctx == null) console.log("NO");
-        else console.log("YES");
         ctx.beginPath();
         ctx.lineWidth=5;
         ctx.fillStyle="red"
