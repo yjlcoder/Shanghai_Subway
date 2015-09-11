@@ -20,11 +20,18 @@ for Node in Nodes:
     #print "stationCount++"
     #i += 1
 
+    print "link = new Array()"
+    j = 0
     for linkedNode in Node:
-        print 'links[linkCount] = lineComponent.createObject(subway,{"leftNode":findStation("'+Node.attrib['Name']+'"),"rightNode":findStation("'+linkedNode.attrib['To']+'"), "lineColor": getColor("'+linkedNode.attrib['Line']+'")})'
-        print 'links[linkCount].point1x = stations[links[linkCount].leftNode].x + 15'
-        print 'links[linkCount].point1y = stations[links[linkCount].leftNode].y + 15'
-        print 'links[linkCount].point2x = stations[links[linkCount].rightNode].x + 15'
-        print 'links[linkCount].point2y = stations[links[linkCount].rightNode].y + 15'
-        print 'console.log(links[linkCount].lineColor)'
-        print "linkCount+=1"
+      #  print 'links[linkCount] = lineComponent.createObject(subway,{"leftNode":findStation("'+Node.attrib['Name']+'"),"rightNode":findStation("'+linkedNode.attrib['To']+'"), "lineColor": getColor("'+linkedNode.attrib['Line']+'")})'
+      #  print 'links[linkCount].point1x = stations[links[linkCount].leftNode].x + 15'
+      #  print 'links[linkCount].point1y = stations[links[linkCount].leftNode].y + 15'
+      #  print 'links[linkCount].point2x = stations[links[linkCount].rightNode].x + 15'
+      #  print 'links[linkCount].point2y = stations[links[linkCount].rightNode].y + 15'
+      #  print 'console.log(links[linkCount].lineColor)'
+      #  print "linkCount+=1"
+      print 'link['+ str(j) + '] = new Link("'+linkedNode.attrib['To']+'", "'+linkedNode.attrib['Line']+'");'
+      print 'line(stations['+str(i)+'].x+offsetx, stations['+str(i)+'].y+offsety, link['+str(j)+'].x+offsetx, link['+str(j)+'].y+offsety,link['+str(j)+'].color);'
+      j += 1
+    print 'stations['+str(i)+']'+'.link = link;'
+    i+=1

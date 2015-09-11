@@ -8,6 +8,7 @@ Canvas{
     property int radius: 7
     property string text: "text"
 
+
     id:canvas
     width: 20
     height: 20
