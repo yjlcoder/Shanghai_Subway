@@ -15,24 +15,6 @@ ApplicationWindow {
     menuBar: MenuBar {
         Menu {
             title: qsTr("&Start")
-            MenuItem {
-                text: qsTr("Set &Start Point")
-//                onTriggered: messageDialog.show(qsTr("Open action triggered"));
-            }
-            MenuItem {
-                text: qsTr("Set &End Point")
-//                onTriggered: Qt.quit();
-            }
-            MenuItem {
-                text: qsTr("&Information")
-//                onTriggered:
-            }
-
-            MenuItem {
-                text: qsTr("&Begin")
-                onTriggered: GRAPH.showPath();
-            }
-
             MenuItem{
                 text: qsTr("&Quit")
                 onTriggered: Qt.quit()

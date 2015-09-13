@@ -17,3 +17,11 @@ function defaultDialog(text){
     }
     dialogComponent.createObject(subway,{"station":text});
 }
+
+function addVertexDialog(text){
+    var dialogComponent = Qt.createComponent("addVertex.qml");
+    if(dialogComponent != Component.Ready){
+        console.log(dialogComponent.errorString());
+    }
+    dialogComponent.createObject(subway,{});
+}

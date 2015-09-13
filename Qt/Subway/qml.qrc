@@ -12,5 +12,6 @@
         <file>Dialog_my.qml</file>
         <file>createDialog.js</file>
         <file>SetStationDialog.qml</file>
+        <file>addVertex.qml</file>
     </qresource>
 </RCC>

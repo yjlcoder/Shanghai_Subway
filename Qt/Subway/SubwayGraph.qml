@@ -1765,13 +1765,23 @@ Canvas{
     }
 
     Button{
-        width: 40
-        height:20
-        text: "Click Me"
+        width: 100
+        height:40
+        text: "最短路径"
         x:30
         y:40
         onClicked: {
             SHG.showPath(source, dest);
+            requestPaint();
+        }
+    }
+    Button{
+        width: 100
+        height:40
+        text: "添加站点"
+        x:30
+        y:100
+        onClicked: {
             requestPaint();
         }
     }
