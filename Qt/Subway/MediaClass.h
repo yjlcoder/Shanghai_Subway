@@ -1,12 +1,19 @@
-#include <QApplication>
-#include <QQmlApplicationEngine>
-#include <QtQml>
-#include <cstring>
-#include <fstream>
-#include "Graph.h"
-#include "MediaClass.h"
+#ifndef SHANGHAI_SUBWAY_MEDIACLASS_H
+#define SHANGHAI_SUBWAY_MEDIACLASS_H
 
-void fileInput(Graph & subway, int i){
+#include <QObject>
+#include "Graph.h"
+#include "fstream"
+
+class MediaClass : public QObject{
+    Q_OBJECT
+    Q_PROPERTY(std::string source READ source WRITE setSource NOTIFY sourceChanged)
+    Q_PROPERTY(std::string dest READ dest WRITE setDest NOTIFY destChanged)
+    Q_PROPERTY(QList<QString> list READ list)
+
+public:
+
+    void fileInput(Graph & subway, int i){
     std::string site1, site2;
     double power;
     std::fstream fin;
@@ -69,28 +76,62 @@ void buildVertex(Graph & subway) {
     fileInput(subway,"/home/liuyang/Code/Shanghai_Subway/Data/Line11_other.dat",11);
 }
 
+    MediaClass(){
+        subwayGraph = new Graph();
+        buildVertex(*subwayGraph);
+    }
+
+    MediaClass(Graph * graph){
+        subwayGraph = graph;
+    }
+
+    std::string source(){
+        return src;
+    }
+
+    void setSource(std::string newsrc){
+        src = newsrc;
+    }
+
+    std::string dest(){
+        return des;
+    }
+
+    void setDest(std::string newdes){
+        des = newdes;
+    }
+
+    QList<QString>list(){
+        return m_list;
+    }
+
+    void setSubwayGraph(Graph * graph){
+        subwayGraph = graph;
+    }
+
+    Q_INVOKABLE void shortestPath(QString dest, QString source){
+        std::string left = dest.toUtf8().constData();
+        std::string right = source.toUtf8().constData();
+        List<VertexandEdge *> * result = subwayGraph->DijkstraShortestPath(&left, &right);
+
+        m_list.clear();
+
+        for(Node<VertexandEdge *> * pointer = result->frontPointer(); pointer != NULL; pointer = pointer->next){
+            const char * str = pointer->value->vertex->getName().c_str();
+            QString qstr(str);
+            m_list.push_back(qstr);
+        }
+    }
+
+signals:
+    void sourceChanged(std::string & source);
+    void destChanged(std::string & dest);
+private:
+    std::string src;
+    std::string des;
+    QList<QString>m_list;
+    Graph * subwayGraph;
+};
 
 
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
-
-    QQmlApplicationEngine engine;
-
-    //Register
-    qmlRegisterType<MediaClass>("liuyang.Media", 1, 0, "MediaClass");
-
-
-
-//    QList<QString> l = c.shortestPath("昌吉东路","同济大学");
-//    for(int i = 0; i < l.length(); i++){
-//        std::cout << l[i].toUtf8().constData() << std::endl;
-//    }
-
-
-
-    //
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-    return app.exec();
-}
+#endif

@@ -54,7 +54,6 @@ public:
         vertexList = new List<Vertex *>;
     };
 
-
     //Modifier
     bool addVertex(std::string Name, uint32_t Line) {
         Node<Vertex *> *pointer = vertexList->frontPointer();

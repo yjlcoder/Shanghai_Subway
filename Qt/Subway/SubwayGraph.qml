@@ -3,10 +3,13 @@ import QtQuick.Controls 1.2
 //import "shanghaigraph.js" as SHG
 import "Drawline.js" as DrawLine
 import "shanghaigraph.js" as SHG
+import liuyang.Media 1.0
 
 Canvas{
     property double real: 1.0
     property double zoom: 1.0
+    property string	source: "同济大学"
+    property string dest: "上海汽车城"
 
     id: subway
     scale: zoom
@@ -1759,6 +1762,18 @@ Canvas{
     }
 
     onPaint: {
+    }
+
+    Button{
+        width: 40
+        height:20
+        text: "Click Me"
+        x:30
+        y:40
+        onClicked: {
+            SHG.showPath();
+            requestPaint();
+        }
     }
 }
 

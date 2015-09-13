@@ -2,6 +2,9 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
+import liuyang.Media 1.0
+import "shanghaigraph.js" as GRAPH
+import "Drawline.js" as LINE
 
 ApplicationWindow {
     title: qsTr("Shanghai Subway")
@@ -24,6 +27,12 @@ ApplicationWindow {
                 text: qsTr("&Information")
 //                onTriggered:
             }
+
+            MenuItem {
+                text: qsTr("&Begin")
+                onTriggered: GRAPH.showPath();
+            }
+
             MenuItem{
                 text: qsTr("&Quit")
                 onTriggered: Qt.quit()
@@ -35,7 +44,9 @@ ApplicationWindow {
         anchors.centerIn: parent;
     }
 
-
+    MediaClass{
+        id:media
+    }
 
     MessageDialog {
         id: messageDialog
@@ -46,4 +57,5 @@ ApplicationWindow {
             messageDialog.open();
         }
     }
+
 }
