@@ -1771,7 +1771,7 @@ Canvas{
         x:30
         y:40
         onClicked: {
-            SHG.showPath();
+            SHG.showPath(source, dest);
             requestPaint();
         }
     }

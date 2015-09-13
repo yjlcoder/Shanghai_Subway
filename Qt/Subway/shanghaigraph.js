@@ -5,6 +5,8 @@ var linkCount = 0;
 var lineComponent = Qt.createComponent("PathDraw.qml")
 var offsetx = 10
 var offsety = 10
+//var dest = "同济大学"
+//var source = "上海汽车城"
 
 function Station(x,y,text,link){
     this.x = x;
@@ -1921,15 +1923,14 @@ function getColor(s){
 
 function line(point1x,point1y,point2x,point2y,color){
     subway.drawline(point1x,point1y,point2x,point2y,color);
-    console.log("HA");
 }
 
-function showPath(){
+function showPath(source, dest){
     initStation();
-    media.shortestPath(qsTr("交通大学"),qsTr("上海汽车城"));
+    initLink();
+    media.shortestPath(source,dest);
     var list = media.list;
     for(var i = 0; i < list.length - 1; i++){
         line(stations[findStation(list[i])].x+offsetx,stations[findStation(list[i])].y+offsety,stations[findStation(list[i+1])].x+offsetx,stations[findStation(list[i+1])].y+offsety,"black");
-        console.log(i);
     }
 }

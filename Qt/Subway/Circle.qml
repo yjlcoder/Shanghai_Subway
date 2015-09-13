@@ -73,8 +73,7 @@ Canvas{
             circle.state = "State2"
         }
         onClicked:{
-            console.log("Clicked"+text);
-            MyDialog.defaultDialog();
+            MyDialog.defaultDialog(text);
         }
     }
 }

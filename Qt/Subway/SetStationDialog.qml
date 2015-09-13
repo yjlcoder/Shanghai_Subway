@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
+import "shanghaigraph.js" as SHG
 
 Dialog {
     id:setStationDialog
@@ -31,11 +32,19 @@ Dialog {
             RowLayout{
                 Button{
                     text: qsTr("设置为出发站");
-                    onClicked: console.log("设置为出发站:"+station);
+                    onClicked:{
+                        subway.source = station;
+                        console.log("设置为出发站:"+station);
+                        setStationDialog.destroy();
+                    }
                 }
                 Button{
                     text: qsTr("设置为目的地");
-                    onClicked: console.log("设置为目的地:"+station);
+                    onClicked: {
+                        subway.dest= station;
+                        console.log("设置为目的地:"+station);
+                        setStationDialog.destroy();
+                    }
                 }
                 Button{
                     text:qsTr("取消");

@@ -10,11 +10,10 @@ function destroy(){
     dynamic.toDestroy();
 }
 
-function defaultDialog(){
+function defaultDialog(text){
     var dialogComponent = Qt.createComponent("SetStationDialog.qml");
     if(dialogComponent != Component.Ready){
         console.log(dialogComponent.errorString());
     }
-
-    dialogComponent.createObject(subway);
+    dialogComponent.createObject(subway,{"station":text});
 }
