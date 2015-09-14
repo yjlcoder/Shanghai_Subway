@@ -8,7 +8,7 @@ Canvas{
     property string strokeColor: "black"
     property int strokeWidth: 2
     property int radius: 8
-    property int inRadius : radius - 4
+    property int inRadius : radius - 2
     property string text: "text"
 
 
@@ -30,7 +30,7 @@ Canvas{
         var ctx = circle.getContext("2d")
 
         ctx.beginPath();
-        ctx.fillStyle=fillColor
+        ctx.fillStyle="black"
         ctx.lineWidth=strokeWidth
         ctx.moveTo(width/2, height/2);
 
@@ -38,7 +38,7 @@ Canvas{
         ctx.fill();
 
         ctx.beginPath();
-        ctx.fillStyle="black"
+        ctx.fillStyle=strokeColor
         ctx.arc(width/2, height/2, inRadius,0, 2*Math.PI, false);
         ctx.fill();
     }
@@ -48,14 +48,14 @@ Canvas{
             name: "State1"
             PropertyChanges {
                 target: circle
-                inRadius:6
+                inRadius:4
             }
         },
         State {
             name: "State2"
             PropertyChanges {
                 target:circle
-                inRadius:4
+                inRadius:6
             }
         }
     ]

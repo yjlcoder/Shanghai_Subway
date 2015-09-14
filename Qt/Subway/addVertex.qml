@@ -50,6 +50,7 @@ Dialog {
                 anchors.right: parent.right
                 onClicked: {
                     addVertex.destroy();
+                    SHG.addVertex(ta.text,preStation,postStation);
                 }
             }
         }

@@ -1929,9 +1929,18 @@ function showPath(source, dest){
     initStation();
     initLink();
     media.shortestPath(source,dest);
+    route.text = "Begin";
     var list = media.list;
+    for(var i = 0; i < list.length; i++){
+        route.text = route.text + "-->" + list[i];
+    }
+
     for(var i = 0; i < list.length - 1; i++){
-        line(stations[findStation(list[i])].x+offsetx,stations[findStation(list[i])].y+offsety,stations[findStation(list[i+1])].x+offsetx,stations[findStation(list[i+1])].y+offsety,"black");
+//        line(stations[findStation(list[i])].x+offsetx,stations[findStation(list[i])].y+offsety,stations[findStation(list[i+1])].x+offsetx,stations[findStation(list[i+1])].y+offsety,"black");
+        if(stations[findStation(list[i])] == null || stations[findStation(list[i+1])] == null){
+        }else{
+            line(stations[findStation(list[i])].x+offsetx,stations[findStation(list[i])].y+offsety,stations[findStation(list[i+1])].x+offsetx,stations[findStation(list[i+1])].y+offsety,"black");
+        }
     }
 }
 
@@ -1942,6 +1951,9 @@ function vertexList(preStation, postStation){
     if(component != Component.Ready){
         console.log(component.errorString());
     }
-
     component.createObject(subway, {"preStation":preStation, "postStation":postStation});
+}
+
+function addVertex(vertexName, preStation, postStation){
+    media.addVertex(vertexName,preStation,postStation);
 }

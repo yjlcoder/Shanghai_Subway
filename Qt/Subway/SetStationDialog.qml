@@ -26,7 +26,7 @@ Dialog {
 
         Rectangle{
             width: 0.25 * parent.width
-            height: parent
+            height: parent.height
             anchors.right:parent.right
             ColumnLayout{
                 Button{

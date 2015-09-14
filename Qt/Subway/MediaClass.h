@@ -1222,11 +1222,14 @@ public:
         }
     }
 
-//    Q_INVOKABLE void addVertex(QString vertexName, QString preName, QString postName){
-//        subwayGraph->addVertex(vertexName,subwayGraph->LINE[16]);
-//        subwayGraph->addEdge(vertexName,preName,1);
-//        subwayGraph->addEdge(vertexName,postName,1);
-//    }
+    Q_INVOKABLE void addVertex(QString vertexName, QString preName, QString postName){
+        std::string vertexname = vertexName.toUtf8().constData();
+        std::string prename = preName.toUtf8().constData();
+        std::string postname = postName.toUtf8().constData();
+        subwayGraph->addVertex(vertexname,subwayGraph->LINE[16]);
+        subwayGraph->addEdge(vertexname,prename,1);
+        subwayGraph->addEdge(vertexname,postname,1);
+    }
 
 signals:
     void sourceChanged(std::string & source);
