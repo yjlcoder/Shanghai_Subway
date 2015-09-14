@@ -1,23 +1,26 @@
 import QtQuick 2.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import "shanghaigraph.js" as SHG
 
+
 Dialog {
-    id:setStationDialog
+    property string preStation: "同济大学"
+    property string postStation: "国权路"
+    id: addVertex
     visible: true
     title: "添加站点"
     property string station: "value"
 
     contentItem: Rectangle {
-        color: "#EEEEEE"
+        color: "#EEE"
         implicitWidth: 400
         implicitHeight: 200
         Text {
             height:parent.height*0.75
             width: parent.width
-            text: "此站为"+station
+            text: "添加站点:\n 前站为:"+preStation+"\n后站为:"+postStation
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignHCenter
             anchors.centerIn: parent
@@ -29,28 +32,27 @@ Dialog {
             height: 50
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
-            RowLayout{
-                Button{
-                    text: qsTr("设置为出发站");
-                    onClicked:{
-                        subway.source = station;
-                        console.log("设置为出发站:"+station);
-                        setStationDialog.destroy();
-                    }
-                }
-                Button{
-                    text: qsTr("设置为目的地");
-                    onClicked: {
-                        subway.dest= station;
-                        console.log("设置为目的地:"+station);
-                        setStationDialog.destroy();
-                    }
-                }
-                Button{
-                    text:qsTr("取消");
-                    onClicked: setStationDialog.destroy();
+
+
+            TextArea{
+                id: ta
+                width: parent.width * 0.75
+                height: parent.height * 0.75
+                anchors.verticalCenter: parent.Center
+                anchors.left:parent.left
+                text: "站点名称"
+            }
+
+            Button{
+                text: "确定"
+                width: parent.width * 0.25
+                height: parent.height * 0.75
+                anchors.right: parent.right
+                onClicked: {
+                    addVertex.destroy();
                 }
             }
         }
     }
+
 }

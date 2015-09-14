@@ -18,10 +18,34 @@ Dialog {
             height:parent.height*0.75
             width: parent.width
             text: "此站为"+station
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.left
             verticalAlignment: Text.AlignHCenter
             anchors.centerIn: parent
             font.pixelSize: 20
+        }
+
+        Rectangle{
+            width: 0.25 * parent.width
+            height: parent
+            anchors.right:parent.right
+            ColumnLayout{
+                Button{
+                    text: "设置为前站"
+                    onClicked: {
+                        subway.preStation = station;
+                        console.log(text+":"+station);
+                        setStationDialog.destroy();
+                    }
+                }
+                Button{
+                    text: "设置为后站"
+                    onClicked: {
+                        subway.postStation = station;
+                        console.log(text+":"+station);
+                        setStationDialog.destroy();
+                    }
+                }
+            }
         }
 
         Rectangle{

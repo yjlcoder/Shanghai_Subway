@@ -10,6 +10,8 @@ Canvas{
     property double zoom: 1.0
     property string	source: "同济大学"
     property string dest: "上海汽车城"
+    property string preStation: "同济大学"
+    property string postStation: "上海汽车城"
 
     id: subway
     scale: zoom
@@ -1782,7 +1784,7 @@ Canvas{
         x:30
         y:100
         onClicked: {
-            requestPaint();
+            SHG.vertexList(preStation, postStation);
         }
     }
 }

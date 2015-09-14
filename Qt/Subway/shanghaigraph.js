@@ -1934,3 +1934,14 @@ function showPath(source, dest){
         line(stations[findStation(list[i])].x+offsetx,stations[findStation(list[i])].y+offsety,stations[findStation(list[i+1])].x+offsetx,stations[findStation(list[i+1])].y+offsety,"black");
     }
 }
+
+function vertexList(preStation, postStation){
+    initStation();
+    initLink();
+    var component = Qt.createComponent("addVertex.qml");
+    if(component != Component.Ready){
+        console.log(component.errorString());
+    }
+
+    component.createObject(subway, {"preStation":preStation, "postStation":postStation});
+}
