@@ -1929,12 +1929,8 @@ function showPath(source, dest){
     initStation();
     initLink();
     media.shortestPath(source,dest);
-    route.text = "Begin";
     var list = media.list;
-    for(var i = 0; i < list.length; i++){
-        route.text = route.text + "-->" + list[i];
-    }
-
+    changeLine(list);
     for(var i = 0; i < list.length - 1; i++){
 //        line(stations[findStation(list[i])].x+offsetx,stations[findStation(list[i])].y+offsety,stations[findStation(list[i+1])].x+offsetx,stations[findStation(list[i+1])].y+offsety,"black");
         if(stations[findStation(list[i])] == null || stations[findStation(list[i+1])] == null){
@@ -1954,6 +1950,45 @@ function vertexList(preStation, postStation){
     component.createObject(subway, {"preStation":preStation, "postStation":postStation});
 }
 
+function changeLine(list){
+    route.text="Begin:";
+    route.text = route.text + list[0] +"\n";
+    var now = getLine(list[0]);
+    console.log("begin"+now);
+    for(var i = 1; i < list.length-1; i++){
+        if(compareLine(now,getLine(list[i])).length == 0){
+            route.text = route.text + "换乘站:" + list[i-1]+"  " +now[0] +"-->"+getLine(list[i])[0] + "\n";
+            now = getLine(list[i+1]);
+        } else {
+            now = compareLine(now, getLine(list[i]));
+        }
+        console.log("NOW:"+list[i]+":"+now);
+    }
+    route.text = route.text + "终点站:" + list[list.length-1] + "\n";
+}
+
 function addVertex(vertexName, preStation, postStation){
     media.addVertex(vertexName,preStation,postStation);
+}
+
+function getLine(s){
+    var stat = stations[findStation(s)];
+    var li = new Array();
+    for(var i = 0; i < stat.link.length; i++){
+        if(li.indexOf(stat.link[i].line) == -1) li.push(stat.link[i].line);
+    }
+    return li;
+}
+
+function compareLine(l1,l2){
+    console.log("Compare:"+l1+";"+l2);
+    var res = new Array();
+    for(var i = 0; i < l1.length; i++){
+        for(var j = 0; j < l2.length; j++){
+            if(l1[i] == l2[j]){
+                if(res.indexOf(l1[i]) == -1) res.push(l1[i]);
+            }
+        }
+    }
+    return res;
 }
