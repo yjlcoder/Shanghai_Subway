@@ -9,7 +9,7 @@ import "Drawline.js" as LINE
 ApplicationWindow {
     title: qsTr("Shanghai Subway")
     width: 1200
-    height: 768
+    height: 800
     visible: true
 
     menuBar: MenuBar {
